@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong, readonly) NSString *title;
 @property (nonatomic, strong, getter=getPhoto) UIImage *photoImage;
+@property (nonatomic, strong, readonly) NSString *photoId;
+
 
 -(instancetype)initWithDict:(NSDictionary *)photoDict;
 

@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong, readonly) NSDictionary *photoDict;
 @property (nonatomic, assign, readonly) NSInteger farm;
-@property (nonatomic, strong, readonly) NSString *photoId;
 @property (nonatomic, strong, readonly) NSString *owner;
 @property (nonatomic, strong, readonly) NSString *secret;
 @property (nonatomic, strong, readonly) NSString *server;
