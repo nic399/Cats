@@ -26,6 +26,7 @@
     [super viewDidLoad];
     self.photoObjectsArr = [NSMutableArray new];
     self.collectionView.allowsMultipleSelection = false;
+    self.navigationItem.title = @"Cats";
     // Do any additional setup after loading the view, typically from a nib.
     [self getImagesFromFlickr];
 }

@@ -55,7 +55,7 @@
             // This will run on the main queue
             
             SFSafariViewController *viewOnline = [[SFSafariViewController alloc] initWithURL:photoURL];
-            [self showViewController:viewOnline sender:self];
+            [self presentViewController:viewOnline animated:true completion:nil];
         }];
         
     }]; // 5
