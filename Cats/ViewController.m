@@ -33,7 +33,7 @@
 
 -(void)getImagesFromFlickr {
     NSString *apiKey = @"6d7a6ca77380a1c3a8d26ed624f98a4a";
-    NSString *urlStr = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=%@&tags=cat", apiKey];
+    NSString *urlStr = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=%@&tags=cat&per_page=300", apiKey];
     NSURL *url = [NSURL URLWithString:urlStr]; // 1
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url]; // 2
     
