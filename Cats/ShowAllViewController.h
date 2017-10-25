@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 @class Photo;
 
-@interface ShowAllViewController : UIViewController
+@interface ShowAllViewController : UIViewController <MKMapViewDelegate>
 
 @property (nonatomic, strong, readwrite) NSArray <Photo *> *photoArr;
 

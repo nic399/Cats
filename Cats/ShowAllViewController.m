@@ -7,6 +7,7 @@
 //
 
 #import "ShowAllViewController.h"
+#import "Photo.h"
 
 @interface ShowAllViewController ()
 
@@ -19,6 +20,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.mapView.mapType = MKMapTypeStandard;
+    [self.mapView setZoomEnabled: true];
+    [self.mapView setRotateEnabled:true];
+    [self.mapView setScrollEnabled:true];
+    [self.mapView setShowsScale:true];
+    self.mapView.delegate = self;
+    
+    [self.mapView addAnnotations:self.photoArr];
+    [self.mapView showAnnotations:self.photoArr animated:true];
+    
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

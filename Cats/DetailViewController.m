@@ -50,12 +50,12 @@
         NSString *photoURLStr = [urlArr[0] objectForKey:@"_content"];
         NSLog(@"%@", photoURLStr);
         NSURL *photoURL = [NSURL URLWithString:photoURLStr];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             // This will run on the main queue
             
             SFSafariViewController *viewOnline = [[SFSafariViewController alloc] initWithURL:photoURL];
             [self presentViewController:viewOnline animated:true completion:nil];
-        }];
+        });
         
     }]; // 5
     

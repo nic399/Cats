@@ -22,5 +22,6 @@
 
 
 -(instancetype _Nonnull )initWithDict:(NSDictionary *_Nonnull)photoDict;
+-(BOOL)downloadData;
 
 @end

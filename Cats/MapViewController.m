@@ -30,10 +30,67 @@
     [self.mapView setShowsScale:true];
     self.mapView.delegate = self;
     
+    Photo *myAnn = self.photo;
+    [self.mapView addAnnotation: myAnn];
     
+    MKCoordinateRegion myRegion = MKCoordinateRegionMakeWithDistance(myAnn.coordinate, 500, 500);
     
-    
-    
+    [self.mapView setRegion:myRegion animated:true];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    //    //////// PIN
+    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"myId"];
+    if (!pinView)
+    {
+        // If an existing pin view was not available, create one.
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myId"];
+        pinView.canShowCallout = YES;
+        pinView.pinTintColor = [UIColor redColor];
+        
+        UIButton* toDetailViewButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [toDetailViewButton addTarget:self
+                               action:@selector(toDetailViewPressed)
+                     forControlEvents:UIControlEventTouchUpInside];
+        pinView.rightCalloutAccessoryView = toDetailViewButton;
+        
+        // Add an image to the left callout.
+        UIImageView *iconView = [[UIImageView alloc] initWithImage:self.photo.thumbnail];
+        iconView.contentMode = UIViewContentModeScaleAspectFit;
+        pinView.leftCalloutAccessoryView = iconView;
+    }
+    return pinView;
+}
+
+-(void)toDetailViewPressed {
+    NSLog(@"to details");
+    [self performSegueWithIdentifier:@"toDetails" sender:self];
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    DetailViewController *destination = segue.destinationViewController;
+    destination.photo = self.photo;
+}
+
+
+@end
+
+
+
+
+
 //    _locationManager = [[CLLocationManager alloc] init];
 //    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 //    _locationManager.distanceFilter = 10; //have to move 10m before location manager checks again
@@ -44,39 +101,60 @@
 //    NSLog(@"You probably should place this in a separate class and use a singleton for it");
 //
 //    [_locationManager startUpdatingLocation];
-    
-    
-    // coordinates
-    
-    
+
+
+// coordinates
+
+
 //    MKPointAnnotation *myAnnotation = [[MKPointAnnotation alloc]init];
 //    myAnnotation.coordinate = CLLocationCoordinate2DMake(49.281838, -123.108151);
 //    [myAnnotation setTitle:@"LHL"];
 //    [myAnnotation setSubtitle:@"Where we currently are"];
 //    [self.mapView addAnnotation: myAnnotation];
-    
-    
-    //    [_myMapView addAnnotations:<#(nonnull NSArray<id<MKAnnotation>> *)#>];
-    // _myMapView showAnnotations:<#(nonnull NSArray<id<MKAnnotation>> *)#> animated:<#(BOOL)#>
-    
-    Photo *myAnn = self.photo;
-    [self.mapView addAnnotation: myAnn];
-    
-    MKCoordinateRegion myRegion = MKCoordinateRegionMakeWithDistance(myAnn.coordinate, 500, 500);
-    
-    [self.mapView setRegion:myRegion animated:true];
-    
-    
-    
-    
-    
-    
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+//    [_myMapView addAnnotations:<#(nonnull NSArray<id<MKAnnotation>> *)#>];
+// _myMapView showAnnotations:<#(nonnull NSArray<id<MKAnnotation>> *)#> animated:<#(BOOL)#>
+
+
+
+
+
+
+
+
+
+
+//    if ([annotation isKindOfClass:[MKPointAnnotation class]])
+//    {
+////////// VIEW
+//        MKAnnotationView *anView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"pinId"];
+//        if (!anView)
+//        {
+//            // If an existing pin view was not available, create one.
+//            anView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pinId"];
+//            anView.canShowCallout = YES;
+//            anView.image = [UIImage imageNamed:@"lhlLogo.png"];
+//            anView.calloutOffset = CGPointMake(0, 32);
+//        }
+//        else
+//        {
+//            anView.annotation = annotation;
+//        }
+//        return anView;
+////    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
@@ -123,95 +201,5 @@
 //        }
 //    }
 //}
-
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    //    if ([annotation isKindOfClass:[MKPointAnnotation class]])
-    //    {
-    ////////// VIEW
-    //        MKAnnotationView *anView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"pinId"];
-    //        if (!anView)
-    //        {
-    //            // If an existing pin view was not available, create one.
-    //            anView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pinId"];
-    //            anView.canShowCallout = YES;
-    //            anView.image = [UIImage imageNamed:@"lhlLogo.png"];
-    //            anView.calloutOffset = CGPointMake(0, 32);
-    //        }
-    //        else
-    //        {
-    //            anView.annotation = annotation;
-    //        }
-    //        return anView;
-    ////    }
-    
-    //    //////// PIN
-    MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"myId"];
-    if (!pinView)
-    {
-        // If an existing pin view was not available, create one.
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myId"];
-        pinView.canShowCallout = YES;
-        pinView.pinTintColor = [UIColor redColor];
-        
-        
-        
-        UIButton* toDetailViewButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [toDetailViewButton addTarget:self
-                               action:@selector(toDetailViewPressed)
-                     forControlEvents:UIControlEventTouchUpInside];
-        pinView.rightCalloutAccessoryView = toDetailViewButton;
-        
-        // Add an image to the left callout.
-        UIImageView *iconView = [[UIImageView alloc] initWithImage:self.photo.thumbnail];
-        iconView.contentMode = UIViewContentModeScaleAspectFit;
-        pinView.leftCalloutAccessoryView = iconView;
-
-        
-    }
-    return pinView;
-}
-
--(void)toDetailViewPressed {
-    NSLog(@"to details");
-    [self performSegueWithIdentifier:@"toDetails" sender:self];
-}
-
-
-
-
-
-
-
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    DetailViewController *destination = segue.destinationViewController;
-    destination.photo = self.photo;
-}
-
-
-@end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -9,9 +9,9 @@
 #import "ViewController.h"
 #import "Photo.h"
 #import "CatViewCell.h"
-#import "DetailViewController.h"
 #import "MapViewController.h"
 #import "SharedData.h"
+#import "ShowAllViewController.h"
 
 @interface ViewController ()
 
@@ -37,7 +37,13 @@
     self.navigationItem.leftBarButtonItem = searchButton;
     // Do any additional setup after loading the view, typically from a nib.
     [self getImagesFromFlickr];
+    
 }
+
+
+
+
+
 
 -(void)getImagesFromFlickr {
     NSString *urlStr = [NSString stringWithFormat:@"%@search&%@&api_key=%@&tags=cat&has_geo=1&extras=url_m&per_page=100", kAPI_REST_REQUEST_PHOTO, kAPI_JSON_OPTIONS, kAPI_KEY];
@@ -67,17 +73,23 @@
         self.photosArr = [[self.flickrData objectForKey:@"photos"] objectForKey:@"photo"];
         for (NSDictionary *thisPhoto in self.photosArr) {
             Photo *photo = [[Photo alloc] initWithDict:thisPhoto];
+            
             [self.photoObjectsArr addObject:photo];
         }
-
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             // This will run on the main queue
             
             NSLog(@"stat: %@", [self.flickrData objectForKey:@"stat"]);
             NSLog(@"PhotosArr count: %ld", self.photosArr.count);
             
             [self.collectionView reloadData];
-        }];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+
+                [self backgroundCoordinateLoading:0];
+            });
+            
+        });
         
     }]; // 5
     
@@ -109,21 +121,35 @@
     [self performSegueWithIdentifier:@"toMap" sender:self];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    //DetailViewController *destination = segue.destinationViewController;
-    MapViewController *destination = segue.destinationViewController;
-    NSIndexPath *itemPath = self.collectionView.indexPathsForSelectedItems[0];
-    destination.photo = self.photoObjectsArr[itemPath.row];
-    [self.collectionView deselectItemAtIndexPath:self.collectionView.indexPathsForSelectedItems[0] animated:true];
-}
+
 
 -(void)showAllPressed {
-    
+    [self performSegueWithIdentifier:@"toShowAll" sender:self];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //DetailViewController *destination = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"toMap"]) {
+        MapViewController *destination = segue.destinationViewController;
+        NSIndexPath *itemPath = self.collectionView.indexPathsForSelectedItems[0];
+        destination.photo = self.photoObjectsArr[itemPath.row];
+        [self.collectionView deselectItemAtIndexPath:self.collectionView.indexPathsForSelectedItems[0] animated:true];
+    }
+    else if ([segue.identifier isEqualToString:@"toShowAll"]) {
+        ShowAllViewController *destination = segue.destinationViewController;
+        destination.photoArr = [self.photoObjectsArr copy];
+    }
+}
 
-
-
+-(void)backgroundCoordinateLoading:(int)next {
+    if (next < self.photoObjectsArr.count) {
+        [self.photoObjectsArr[next] coordinate];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self backgroundCoordinateLoading:next+1];
+        });
+        
+    }
+}
 
 
 

@@ -11,6 +11,7 @@
 
 @interface Photo ()
 
+//@property (nonatomic, readwrite) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong, readonly) NSDictionary *photoDict;
 @property (nonatomic, assign, readonly) NSInteger farm;
 @property (nonatomic, strong, readonly) NSString *owner;
@@ -44,10 +45,10 @@
     return self;
 }
 
--(CLLocationCoordinate2D)getCoordinate {
-    if (self.coordinate.latitude != 0.00 || self.coordinate.longitude != 0.00) {
+-(CLLocationCoordinate2D)coordinate {
+    if (_coordinate.latitude != 0.00 || _coordinate.longitude != 0.00) {
         NSLog(@"coordinates already set");
-        return self.coordinate;
+        return _coordinate;
     }
     NSString *urlStr = [NSString stringWithFormat:@"%@geo.getLocation&api_key=%@&photo_id=%@&%@", kAPI_REST_REQUEST_PHOTO, kAPI_KEY, self.photoId, kAPI_JSON_OPTIONS];
     NSURL *geoURL = [NSURL URLWithString:urlStr];
@@ -78,23 +79,22 @@
         NSString *lat = [locationData objectForKey:@"latitude"];
         NSLog(@"longitude: %@, latitude:%@", lon, lat);
         CLLocationCoordinate2D photoLoc = CLLocationCoordinate2DMake([lat doubleValue], [lon doubleValue]);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^()
-        {
+        dispatch_async(dispatch_get_main_queue(), ^{
             // This will run on the main queue
-            NSLog(@"%@, %@", lon, lat);
+            NSLog(@"%@: %@, %@", self.title, lon, lat);
             _coordinate = photoLoc;
-        }];
+        });
         
     }]; // 5
     
     [dataTask resume]; // 6
-    return self.coordinate;
+    return _coordinate;
 }
 
 -(UIImage *)getPhoto {
     if (_photoImage == nil) {
         _photoImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self getimageURL]]];
-        [self getCoordinate];
+        //self.coordinate;
     }
     return _photoImage;
 }
@@ -109,7 +109,7 @@
 -(UIImage *)getThumbnail {
     if (_thumbnail == nil) {
         _thumbnail = [UIImage imageWithData:[NSData dataWithContentsOfURL:[self getThumbnailURL]]];
-        [self getCoordinate];
+        //self.coordinate;
     }
     return _thumbnail;
 }
@@ -120,6 +120,15 @@
     
     return  thumbnailURL;
     
+}
+
+-(BOOL)downloadData {
+    while (_photoImage == nil || _thumbnail == nil || _coordinate.latitude == 0.00 || _coordinate.longitude == 0.00) {
+        [self getPhoto];
+        [self getThumbnail];
+        [self coordinate];
+    }
+    return true;
 }
 
 @end
