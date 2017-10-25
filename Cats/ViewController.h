@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchViewController.h"
 
-@interface ViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, ShowImagesDelegate>
 
+@property (nonatomic, strong, readwrite) NSMutableArray<Photo *> *photoObjectsArr;
 
 @end
 

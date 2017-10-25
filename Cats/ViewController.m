@@ -17,7 +17,6 @@
 
 @property (nonatomic, strong, readwrite) NSDictionary *flickrData;
 @property (nonatomic, strong, readwrite) NSArray *photosArr;
-@property (nonatomic, strong, readwrite) NSMutableArray<Photo *> *photoObjectsArr;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
@@ -30,70 +29,20 @@
     NSLog(@"Cat view loaded");
     self.photoObjectsArr = [NSMutableArray new];
     self.collectionView.allowsMultipleSelection = false;
-    self.navigationItem.title = @"Cats";
+    self.navigationItem.title = @"Results";
     UIBarButtonItem *showAllButton = [[UIBarButtonItem alloc] initWithTitle:@"Show All" style:UIBarButtonItemStylePlain target:self action:@selector(showAllPressed)];
     self.navigationItem.rightBarButtonItem = showAllButton;
-    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action:@selector(showAllPressed)];
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action:@selector(searchPressed)];
     self.navigationItem.leftBarButtonItem = searchButton;
     // Do any additional setup after loading the view, typically from a nib.
-    [self getImagesFromFlickr];
+//    [self getImagesFromFlickr];
+    [self searchPressed];
     
 }
 
-
-
-
-
-
--(void)getImagesFromFlickr {
-    NSString *urlStr = [NSString stringWithFormat:@"%@search&%@&api_key=%@&tags=cat&has_geo=1&extras=url_m&per_page=100", kAPI_REST_REQUEST_PHOTO, kAPI_JSON_OPTIONS, kAPI_KEY];
-    NSURL *url = [NSURL URLWithString:urlStr]; // 1
-    NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url]; // 2
-    
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration]; // 3
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration]; // 4
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error) { // 1
-            // Handle the error
-            NSLog(@"error: %@", error.localizedDescription);
-            return;
-        }
-        
-        NSError *jsonError = nil;
-        self.flickrData = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError]; // 2
-        if (jsonError) { // 3
-            // Handle the error
-            NSLog(@"jsonError: %@", jsonError.localizedDescription);
-            return;
-        }
-        
-        // If we reach this point, we have successfully retrieved the JSON from the API
-        self.photosArr = [[self.flickrData objectForKey:@"photos"] objectForKey:@"photo"];
-        for (NSDictionary *thisPhoto in self.photosArr) {
-            Photo *photo = [[Photo alloc] initWithDict:thisPhoto];
-            
-            [self.photoObjectsArr addObject:photo];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // This will run on the main queue
-            
-            NSLog(@"stat: %@", [self.flickrData objectForKey:@"stat"]);
-            NSLog(@"PhotosArr count: %ld", self.photosArr.count);
-            
-            [self.collectionView reloadData];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-
-                [self backgroundCoordinateLoading:0];
-            });
-            
-        });
-        
-    }]; // 5
-    
-    [dataTask resume]; // 6
+-(void)showView {
+    [self backgroundCoordinateLoading:0];
+    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -121,7 +70,9 @@
     [self performSegueWithIdentifier:@"toMap" sender:self];
 }
 
-
+-(void)searchPressed {
+    [self performSegueWithIdentifier:@"toSearch" sender:self];
+}
 
 -(void)showAllPressed {
     [self performSegueWithIdentifier:@"toShowAll" sender:self];
@@ -139,17 +90,22 @@
         ShowAllViewController *destination = segue.destinationViewController;
         destination.photoArr = [self.photoObjectsArr copy];
     }
+    else if ([segue.identifier isEqualToString:@"toSearch"]) {
+        SearchViewController *destination = segue.destinationViewController;
+        destination.delegate = self;
+    }
 }
 
 -(void)backgroundCoordinateLoading:(int)next {
     if (next < self.photoObjectsArr.count) {
         [self.photoObjectsArr[next] coordinate];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             [self backgroundCoordinateLoading:next+1];
         });
-        
     }
 }
+
+
 
 
 

@@ -84,6 +84,7 @@
                         <outlet property="collectionView" destination="b8R-YF-Iwh" id="b76-M2-N4y"/>
                         <segue destination="wns-c5-bXb" kind="show" identifier="toMap" id="yCs-bl-GQM"/>
                         <segue destination="s7o-gd-2OK" kind="show" identifier="toShowAll" id="lIt-ZA-n6b"/>
+                        <segue destination="w8c-qS-Iqo" kind="show" identifier="toSearch" id="wD2-nf-QHJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -133,6 +134,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gl3-9x-nAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1913" y="63"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="gCz-5Y-Y6r">
+            <objects>
+                <viewController id="w8c-qS-Iqo" customClass="SearchViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qg3-Lg-L9g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter search terms here" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Ptp-pg-7Da">
+                                <rect key="frame" x="0.0" y="114" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="rpU-aI-s7G"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="w8c-qS-Iqo" id="X6R-Oh-f0j"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MKY-bG-620">
+                                <rect key="frame" x="50" y="194" width="275" height="125"/>
+                                <color key="backgroundColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="savePressed:" destination="w8c-qS-Iqo" eventType="touchUpInside" id="7HJ-4h-jWa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3mX-nx-n6a" firstAttribute="bottom" secondItem="MKY-bG-620" secondAttribute="bottom" constant="348" id="6ip-p2-Zy4"/>
+                            <constraint firstItem="MKY-bG-620" firstAttribute="leading" secondItem="3mX-nx-n6a" secondAttribute="leading" constant="50" id="9bA-fs-EzK"/>
+                            <constraint firstItem="3mX-nx-n6a" firstAttribute="trailing" secondItem="Ptp-pg-7Da" secondAttribute="trailing" id="ESj-H9-Mpd"/>
+                            <constraint firstItem="Ptp-pg-7Da" firstAttribute="leading" secondItem="3mX-nx-n6a" secondAttribute="leading" id="MMZ-oV-HCH"/>
+                            <constraint firstItem="Ptp-pg-7Da" firstAttribute="top" secondItem="3mX-nx-n6a" secondAttribute="top" constant="50" id="gPW-vW-hIC"/>
+                            <constraint firstItem="3mX-nx-n6a" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MKY-bG-620" secondAttribute="trailing" id="hoU-j3-EMQ"/>
+                            <constraint firstItem="MKY-bG-620" firstAttribute="top" secondItem="Ptp-pg-7Da" secondAttribute="bottom" constant="40" id="qfP-kw-sap"/>
+                            <constraint firstItem="MKY-bG-620" firstAttribute="centerX" secondItem="3mX-nx-n6a" secondAttribute="centerX" id="w9c-z4-0TJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3mX-nx-n6a"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchTextField" destination="Ptp-pg-7Da" id="KgC-yc-joz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tVt-k0-87R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1101.5999999999999" y="-662.51874062968523"/>
         </scene>
         <!--Show All View Controller-->
         <scene sceneID="9B1-Pr-Xkq">
