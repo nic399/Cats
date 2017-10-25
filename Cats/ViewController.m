@@ -27,9 +27,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"Cat view loaded");
     self.photoObjectsArr = [NSMutableArray new];
     self.collectionView.allowsMultipleSelection = false;
     self.navigationItem.title = @"Cats";
+    UIBarButtonItem *showAllButton = [[UIBarButtonItem alloc] initWithTitle:@"Show All" style:UIBarButtonItemStylePlain target:self action:@selector(showAllPressed)];
+    self.navigationItem.rightBarButtonItem = showAllButton;
+    UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self action:@selector(showAllPressed)];
+    self.navigationItem.leftBarButtonItem = searchButton;
     // Do any additional setup after loading the view, typically from a nib.
     [self getImagesFromFlickr];
 }
@@ -111,5 +116,16 @@
     destination.photo = self.photoObjectsArr[itemPath.row];
     [self.collectionView deselectItemAtIndexPath:self.collectionView.indexPathsForSelectedItems[0] animated:true];
 }
+
+-(void)showAllPressed {
+    
+}
+
+
+
+
+
+
+
 
 @end

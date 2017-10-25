@@ -46,6 +46,7 @@
 
 -(CLLocationCoordinate2D)getCoordinate {
     if (self.coordinate.latitude != 0.00 || self.coordinate.longitude != 0.00) {
+        NSLog(@"coordinates already set");
         return self.coordinate;
     }
     NSString *urlStr = [NSString stringWithFormat:@"%@geo.getLocation&api_key=%@&photo_id=%@&%@", kAPI_REST_REQUEST_PHOTO, kAPI_KEY, self.photoId, kAPI_JSON_OPTIONS];

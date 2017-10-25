@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 @class Photo;
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong, readwrite) Photo *photo;

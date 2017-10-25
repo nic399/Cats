@@ -83,6 +83,7 @@
                     <connections>
                         <outlet property="collectionView" destination="b8R-YF-Iwh" id="b76-M2-N4y"/>
                         <segue destination="wns-c5-bXb" kind="show" identifier="toMap" id="yCs-bl-GQM"/>
+                        <segue destination="s7o-gd-2OK" kind="show" identifier="toShowAll" id="lIt-ZA-n6b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -132,6 +133,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gl3-9x-nAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1913" y="63"/>
+        </scene>
+        <!--Show All View Controller-->
+        <scene sceneID="9B1-Pr-Xkq">
+            <objects>
+                <viewController id="s7o-gd-2OK" customClass="ShowAllViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uoA-04-LkZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZDI-ey-atm">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZDI-ey-atm" firstAttribute="leading" secondItem="fC8-a9-J3k" secondAttribute="leading" id="U5h-ph-nFC"/>
+                            <constraint firstItem="fC8-a9-J3k" firstAttribute="bottom" secondItem="ZDI-ey-atm" secondAttribute="bottom" id="X8g-zg-FyQ"/>
+                            <constraint firstItem="fC8-a9-J3k" firstAttribute="trailing" secondItem="ZDI-ey-atm" secondAttribute="trailing" id="fmw-Ra-YgI"/>
+                            <constraint firstItem="ZDI-ey-atm" firstAttribute="top" secondItem="fC8-a9-J3k" secondAttribute="top" id="jfU-XL-tP6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fC8-a9-J3k"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="ZDI-ey-atm" id="4R1-iM-zyb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yvc-GZ-sXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1102" y="886"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="g9t-5Z-DJp">

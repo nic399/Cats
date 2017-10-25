@@ -12,8 +12,8 @@
 
 @interface MapViewController ()
 
-@property (nonatomic) CLLocationManager *locationManager;
-@property (nonatomic) CLLocation *currentLocation;
+//@property (nonatomic) CLLocationManager *locationManager;
+//@property (nonatomic) CLLocation *currentLocation;
 
 @end
 
@@ -34,16 +34,16 @@
     
     
     
-    _locationManager = [[CLLocationManager alloc] init];
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    _locationManager.distanceFilter = 10; //have to move 10m before location manager checks again
-    
-    _locationManager.delegate = self;
-    [_locationManager requestAlwaysAuthorization];
-    
-    NSLog(@"You probably should place this in a separate class and use a singleton for it");
-    
-    [_locationManager startUpdatingLocation];
+//    _locationManager = [[CLLocationManager alloc] init];
+//    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    _locationManager.distanceFilter = 10; //have to move 10m before location manager checks again
+//
+//    _locationManager.delegate = self;
+//    [_locationManager requestAlwaysAuthorization];
+//
+//    NSLog(@"You probably should place this in a separate class and use a singleton for it");
+//
+//    [_locationManager startUpdatingLocation];
     
     
     // coordinates
