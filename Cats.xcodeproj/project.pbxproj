@@ -16,6 +16,8 @@
 		013E524C1F9E8C3100BC08BD /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 013E524B1F9E8C3100BC08BD /* Photo.m */; };
 		013E52771F9EB6BD00BC08BD /* CatViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 013E52761F9EB6BD00BC08BD /* CatViewCell.m */; };
 		013E527A1F9EBF1200BC08BD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013E52791F9EBF1200BC08BD /* DetailViewController.m */; };
+		013E52A21F9FC6CF00BC08BD /* SharedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 013E52A11F9FC6CF00BC08BD /* SharedData.m */; };
+		013E52A51F9FDD1E00BC08BD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013E52A41F9FDD1E00BC08BD /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,10 @@
 		013E52761F9EB6BD00BC08BD /* CatViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatViewCell.m; sourceTree = "<group>"; };
 		013E52781F9EBF1200BC08BD /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		013E52791F9EBF1200BC08BD /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		013E52A01F9FC6CF00BC08BD /* SharedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedData.h; sourceTree = "<group>"; };
+		013E52A11F9FC6CF00BC08BD /* SharedData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharedData.m; sourceTree = "<group>"; };
+		013E52A31F9FDD1E00BC08BD /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		013E52A41F9FDD1E00BC08BD /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,14 +75,18 @@
 			children = (
 				013E52341F9E87CE00BC08BD /* AppDelegate.h */,
 				013E52351F9E87CE00BC08BD /* AppDelegate.m */,
+				013E52A01F9FC6CF00BC08BD /* SharedData.h */,
+				013E52A11F9FC6CF00BC08BD /* SharedData.m */,
+				013E52751F9EB6BD00BC08BD /* CatViewCell.h */,
+				013E52761F9EB6BD00BC08BD /* CatViewCell.m */,
 				013E52371F9E87CE00BC08BD /* ViewController.h */,
 				013E52381F9E87CE00BC08BD /* ViewController.m */,
 				013E52781F9EBF1200BC08BD /* DetailViewController.h */,
 				013E52791F9EBF1200BC08BD /* DetailViewController.m */,
+				013E52A31F9FDD1E00BC08BD /* MapViewController.h */,
+				013E52A41F9FDD1E00BC08BD /* MapViewController.m */,
 				013E524A1F9E8C3100BC08BD /* Photo.h */,
 				013E524B1F9E8C3100BC08BD /* Photo.m */,
-				013E52751F9EB6BD00BC08BD /* CatViewCell.h */,
-				013E52761F9EB6BD00BC08BD /* CatViewCell.m */,
 				013E523A1F9E87CE00BC08BD /* Main.storyboard */,
 				013E523D1F9E87CE00BC08BD /* Assets.xcassets */,
 				013E523F1F9E87CE00BC08BD /* LaunchScreen.storyboard */,
@@ -158,7 +168,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				013E524C1F9E8C3100BC08BD /* Photo.m in Sources */,
+				013E52A21F9FC6CF00BC08BD /* SharedData.m in Sources */,
 				013E52391F9E87CE00BC08BD /* ViewController.m in Sources */,
+				013E52A51F9FDD1E00BC08BD /* MapViewController.m in Sources */,
 				013E52771F9EB6BD00BC08BD /* CatViewCell.m in Sources */,
 				013E52441F9E87CE00BC08BD /* main.m in Sources */,
 				013E52361F9E87CE00BC08BD /* AppDelegate.m in Sources */,
@@ -299,6 +311,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 48KFD7RJD2;
 				INFOPLIST_FILE = Cats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicholasbfung.Cats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -313,6 +326,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 48KFD7RJD2;
 				INFOPLIST_FILE = Cats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicholasbfung.Cats;
 				PRODUCT_NAME = "$(TARGET_NAME)";

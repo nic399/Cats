@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 #import "Photo.h"
 #import <SafariServices/SafariServices.h>
+#import "SharedData.h"
 
 @interface DetailViewController ()
 
@@ -18,9 +19,7 @@
 
 @implementation DetailViewController
 - (IBAction)viewOnlinePressed:(id)sender {
-    NSLog(@"View Online");
-    NSString *apiKey = @"6d7a6ca77380a1c3a8d26ed624f98a4a";
-    NSString *urlStr = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=%@&photo_id=%@&format=json&nojsoncallback=1", apiKey, self.photo.photoId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@getInfo&api_key=%@&photo_id=%@&%@", kAPI_REST_REQUEST_PHOTO, kAPI_KEY, self.photo.photoId, kAPI_JSON_OPTIONS];
     NSURL *detailURL = [NSURL URLWithString:urlStr];
     
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:detailURL]; // 2
@@ -77,6 +76,10 @@
     // Do any additional setup after loading the view.
     self.detailImageView.image = self.photo.photoImage;
     self.navigationItem.title = self.photo.title;
+    //[self.photo coordinate];
+    //NSLog(@"lat: %f, lon: %f", self.photo.coordinate.latitude, self.photo.coordinate.latitude);
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

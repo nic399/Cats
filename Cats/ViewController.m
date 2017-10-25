@@ -10,6 +10,8 @@
 #import "Photo.h"
 #import "CatViewCell.h"
 #import "DetailViewController.h"
+#import "MapViewController.h"
+#import "SharedData.h"
 
 @interface ViewController ()
 
@@ -22,6 +24,7 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.photoObjectsArr = [NSMutableArray new];
@@ -32,8 +35,7 @@
 }
 
 -(void)getImagesFromFlickr {
-    NSString *apiKey = @"6d7a6ca77380a1c3a8d26ed624f98a4a";
-    NSString *urlStr = [NSString stringWithFormat:@"https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=%@&tags=cat&has_geo=1&extras=url_m&per_page=100", apiKey];
+    NSString *urlStr = [NSString stringWithFormat:@"%@search&%@&api_key=%@&tags=cat&has_geo=1&extras=url_m&per_page=100", kAPI_REST_REQUEST_PHOTO, kAPI_JSON_OPTIONS, kAPI_KEY];
     NSURL *url = [NSURL URLWithString:urlStr]; // 1
     NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url]; // 2
     
@@ -88,7 +90,7 @@
     
     Photo *photo = self.photoObjectsArr[indexPath.row];
     cell.titleLabel.text = photo.title;
-    cell.photoImageView.image = photo.getPhoto;
+    cell.photoImageView.image = photo.thumbnail;
     
     
     return cell;
@@ -99,58 +101,15 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"toDetail" sender:self];
+    [self performSegueWithIdentifier:@"toMap" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    DetailViewController *destination = segue.destinationViewController;
+    //DetailViewController *destination = segue.destinationViewController;
+    MapViewController *destination = segue.destinationViewController;
     NSIndexPath *itemPath = self.collectionView.indexPathsForSelectedItems[0];
     destination.photo = self.photoObjectsArr[itemPath.row];
     [self.collectionView deselectItemAtIndexPath:self.collectionView.indexPathsForSelectedItems[0] animated:true];
 }
-
-//- (void)encodeWithCoder:(nonnull NSCoder *)aCoder {
-//    <#code#>
-//}
-//
-//- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
-//    <#code#>
-//}
-//
-//- (void)preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-//    <#code#>
-//}
-//
-//- (CGSize)sizeForChildContentContainer:(nonnull id<UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
-//    <#code#>
-//}
-//
-//- (void)systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-//    <#code#>
-//}
-//
-//- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-//    <#code#>
-//}
-//
-//- (void)willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-//    <#code#>
-//}
-//
-//- (void)didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
-//    <#code#>
-//}
-//
-//- (void)setNeedsFocusUpdate {
-//    <#code#>
-//}
-//
-//- (BOOL)shouldUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context {
-//    <#code#>
-//}
-//
-//- (void)updateFocusIfNeeded {
-//    <#code#>
-//}
 
 @end

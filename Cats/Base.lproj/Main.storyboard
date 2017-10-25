@@ -82,7 +82,7 @@
                     <navigationItem key="navigationItem" id="PHA-Ct-f71"/>
                     <connections>
                         <outlet property="collectionView" destination="b8R-YF-Iwh" id="b76-M2-N4y"/>
-                        <segue destination="R8c-Tu-rFq" kind="show" identifier="toDetail" id="lLL-oU-uTf"/>
+                        <segue destination="wns-c5-bXb" kind="show" identifier="toMap" id="yCs-bl-GQM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -131,7 +131,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gl3-9x-nAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1237.5999999999999" y="62.518740629685162"/>
+            <point key="canvasLocation" x="1913" y="63"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="g9t-5Z-DJp">
+            <objects>
+                <viewController id="wns-c5-bXb" customClass="MapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yHy-s2-bLz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="gQN-la-SCP">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bU1-k4-uTW" firstAttribute="trailing" secondItem="gQN-la-SCP" secondAttribute="trailing" id="IAc-22-692"/>
+                            <constraint firstItem="gQN-la-SCP" firstAttribute="leading" secondItem="bU1-k4-uTW" secondAttribute="leading" id="SQz-fB-tvI"/>
+                            <constraint firstItem="bU1-k4-uTW" firstAttribute="bottom" secondItem="gQN-la-SCP" secondAttribute="bottom" id="WTJ-Pl-r56"/>
+                            <constraint firstItem="gQN-la-SCP" firstAttribute="top" secondItem="bU1-k4-uTW" secondAttribute="top" id="sSG-P4-ww8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bU1-k4-uTW"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="gQN-la-SCP" id="2nj-b0-D1v"/>
+                        <segue destination="R8c-Tu-rFq" kind="show" identifier="toDetails" id="Qyp-wG-Smb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WNd-dN-k21" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1102" y="63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rkd-PK-kn3">

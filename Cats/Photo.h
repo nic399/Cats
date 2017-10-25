@@ -14,6 +14,7 @@
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, strong, getter=getPhoto, nullable) UIImage *photoImage;
+@property (nonatomic, strong, getter=getThumbnail, nullable) UIImage *thumbnail;
 @property (nonatomic, strong, readonly, nullable) NSString *photoId;
 
 @property (nonatomic, readonly, copy, nullable) NSString *title;
